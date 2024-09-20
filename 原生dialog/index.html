@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>原生dialog</title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+    }
+
+    body {
+      padding: 20px;
+      background: #ccc;
+    }
+
+    .open-button {
+      padding-inline: 10px;
+      line-height: 2;
+    }
+
+    dialog {
+      /* show方式显示处理 */
+      position: fixed;
+      --animate-time: 0.5s;
+      padding: 10px;
+      inset: 50%;
+      transform: translate(-50%, -50%);
+      width: 500px;
+      height: 400px;
+      border-radius: 20px;
+      border-width: 0px;
+      transition: opacity var(--animate-time) ease, transform var(--animate-time) ease;
+    }
+
+    dialog::backdrop {
+      background-color: rgba(0, 0, 0, 0.5);
+      transition: opacity var(--animate-time) ease;
+    }
+
+    .dialog-title {
+      height: 30px;
+      width: 100%;
+    }
+
+    .dialog-title span {
+      float: right;
+      cursor: pointer;
+    }
+
+    /* 结束动画 */
+    .dialog-close-animate {
+      animation: block-to-none 0.5s ease forwards;
+    }
+
+    /* backdrop 隐藏动画 */
+    .dialog-close-animate::backdrop {
+      opacity: 0;
+    }
+
+    @keyframes block-to-none {
+      0% {
+        opacity: 1;
+      }
+
+      100% {
+        transform: translate(-50%, -40%);
+        opacity: 0;
+      }
+    }
+
+    /* 开始动画 */
+    @starting-style {
+      dialog {
+        transform: translate(-50%, -40%);
+        opacity: 0;
+      }
+
+      dialog::backdrop {
+        opacity: 0;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+  <h4>dialog 标签</h4>
+  <ul>
+    <li>属性：open 默认展示状态</li>
+    <li>方法：showModal、show、close</li>
+  </ul>
+  <button class="open-button" onclick="openModalDialog()">dialog.showModal</button>
+  <button class="open-button" onclick="openDialog()">dialog.open</button>
+  <dialog>
+    <header class="dialog-title">
+      <span onclick="closeDialog()">x</span>
+      <h4>dialog</h4>
+    </header>
+  </dialog>
+  <script src="./main.js"></script>
+</body>
+
+</html>
